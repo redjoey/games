@@ -1,11 +1,17 @@
-# games
+# Games
 
-Install Python for Windows
----------------------------
+## Install Python for Windows
 
-Go to www.python.org and click on Downloads. Click on the latest version of
-   Python for Windows. It should start with the number 3. Select executable
-   installer from the different installer options that appear. And then you
-   can install Python there.
+- Go to www.python.org and click on Downloads. 
+- Click on the latest version of Python for Windows. _It should start with the number 3_.
+- Select executable installer from the options that appear.
 
 We used Python 3.6.4 to make our stuff.
+
+## Run the game
+
+- From the command prompt, enter the following command:
+    ```
+    cd invadedhousepython3 
+    run.py
+    ```
