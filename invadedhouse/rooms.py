@@ -154,7 +154,7 @@ class Weapon(Item):
 
     def get_damage(self):
         return self.damage
-       
+
 
 class Monster:
 
@@ -262,7 +262,7 @@ class House:
             'The End',
             'You did it, {player_name}! You escaped the '
             'Invaded House! Thanks for playing, look out for our next project: '
-            'The Invaded House Maker!'
+            'Invaded House Maker!'
         )
         warp_room = Room(
             'Warp Room',
