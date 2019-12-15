@@ -1,20 +1,19 @@
+from .commands import CommandInterpreter
+from .player import Player
+from .rooms import House
+"""
+             Welcome to...
+   ____                       __         __  __ __                   
+  /  _/___   _  __ ___  _ ___/ /___  ___/ / / // /___   __ __ ___  ___ 
+ _/ / / _ \\| |/ // _  `// _  // -_)/ _  / / _  // _ \\/ // /(_-</  -_)
+/___//_//_/ |___/ \\_,_/ \\_,_/ __/\\_,_/ /_//_/ ___/ \\_,_//___/\\__/ 
+                                                                  
 
-from commands import CommandInterpreter
-from player import Player
-from rooms import House, Room
+             Storyline by:  @redjoey
+        Code Architecture:  @jsoconnell                               
+"""
 
 
-# Welcome to our awesome game:
-#
-#      THE ADVENTURE OF THE INVADED HOUSE!
-#
-# Storyline by:
-#   Joey O'Connell
-#
-# Code architecture by:
-#   Dad O'Connell
-#
-#
 def main():
     player = Player()
     house = House()
@@ -23,13 +22,5 @@ def main():
     
     game.run()
 
-def old_main():
-    current_room = bed_room
-    turn = 1
-    while(turn <= 5):
-        current_room.enter()
-        cmd = input("> ")
-        turn += 1
-        print("Sorry, I don\'t understand that command yet.")
 
 main()

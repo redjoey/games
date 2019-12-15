@@ -1,18 +1,18 @@
-
-class Room():
+class Room:
     def __init__(self, name: str, description: str):
         self.name = name
         self.description = description
+        self.exits = []
         self.items = []
         self.monsters = []
 
     def __str__(self):
         return self.get_name()
 
-    def get_description(self):
+    def get_description(self) -> str:
         return self.description
 
-    def get_name(self):
+    def get_name(self) -> str:
         return self.name
 
     def enter(self, player):
@@ -63,7 +63,6 @@ class Room():
             self.get_items().append(item)
 
     def remove_item(self, item_str):
-        item = None
         for item in self.get_items():
             if item.get_name().lower() == item_str.lower():
                 self.get_items().remove(item)
@@ -126,7 +125,7 @@ class Room():
                 print(item.get_description())
 
 
-class Item():
+class Item:
 
     def __init__(self, name: str, description: str):
         self.name = name
@@ -156,9 +155,8 @@ class Weapon(Item):
     def get_damage(self):
         return self.damage
        
-    
 
-class Monster():
+class Monster:
 
     def __init__(
         self,
@@ -206,9 +204,11 @@ class Monster():
         return self.get_hp() > 0
         
 
-class House():
+class House:
 
     def __init__(self):
+        self.starting_location = None
+        self.room_directory = None
         self.build_house()
 
     def build_house(self):
@@ -219,12 +219,12 @@ class House():
         )
         entry = Room(
             'Entry Room',
-            'You\'re in a very empty room, except for a set of stairs '\
+            'You\'re in a very empty room, except for a set of stairs '
             'and a door. Behind the door you hear monstrous screams.'
         )
         monster_room = Room(
             'Monster Room',
-            'You are in a narrow room containing a screaming, hungry '\
+            'You are in a narrow room containing a screaming, hungry '
             'monster.'
         )
         sword_room = Room(
@@ -237,7 +237,7 @@ class House():
         )
         pumpkin_room = Room(
             'Pumpkin Room',
-            'You are in a very large room containing a basket of pumpkins.'\
+            'You are in a very large room containing a basket of pumpkins.'
             'You could probably make pie...'
         )
         boss_room = Room(
@@ -246,34 +246,34 @@ class House():
         )
         laser_room = Room(
             'Laser Room',
-            'You are in a narrow room, there\'s a teleporter, but also a laser '\
+            'You are in a narrow room, there\'s a teleporter, but also a laser '
             'gun. Maybe you should pick that up first...'
         )
         finale_room = Room(
             'FINALE ROOM',
-             f'This is it. You are in a narrow room, containing a fat golden monster '\
-            'that probably doesn\'t even know what the word \'attack\' means, '\
-            'and behind it a special wall that a laser gun could break through.'\
-            'You can do this, {player_name}. Just kill that monster and '\
-            'break through that wall and you\'re out of this Invaded House... '\
-            'Let\'s go.'
+            'This is it. You are in a narrow room, containing a fat golden monster \
+            that probably doesn\'t even know what the word \'attack\' means, \
+            and behind it a special wall that a laser gun could break through. \
+            You can do this, {player_name}. Just kill that monster and \
+            break through that wall and you\'re out of this Invaded House... \
+            Let\'s go.'
         )
         end_room = Room(
             'The End',
-            'You did it, {player_name}! You escaped the '\
-            'Invaded House! Thanks for playing, look out for our next project: '\
+            'You did it, {player_name}! You escaped the '
+            'Invaded House! Thanks for playing, look out for our next project: '
             'The Invaded House Maker!'
         )
         warp_room = Room(
             'Warp Room',
-            'Nobody drew this on the map... Well, you can warp somewhere. Didn\'t see this on'\
+            'Nobody drew this on the map... Well, you can warp somewhere. Didn\'t see this on'
             ' the map. Just sayin\'.'
         )
 
         # set up the items
         sword = Weapon(
             'Sword',
-            'What a sharp blade! This does 5 damage. If you find a '\
+            'What a sharp blade! This does 5 damage. If you find a '
             'better sword, it will do more.',
             5
         )
@@ -325,12 +325,11 @@ class House():
             'Fat, strong, pretty, and only killed with a Gold Sword.',
             1000
         )
-        
 
         # set up all the exits and items for each room
         bedroom.set_exits([entry])
         bedroom.set_items([sword, key, apple])
-                          
+
         entry.set_exits([bedroom, monster_room, sword_room])
         sword_room.set_exits([entry])
         sword_room.set_items([super_sword])
@@ -339,7 +338,7 @@ class House():
         teleporter_room.set_exits([monster_room, pumpkin_room])
         pumpkin_room.set_exits([teleporter_room, boss_room])
         pumpkin_room.set_items([pumpkin, pumpkin, pumpkin])
-        boss_room.set_exits([pumpkin_room,laser_room])
+        boss_room.set_exits([pumpkin_room, laser_room])
         boss_room.set_items([boss_key, gold_sword])
         boss_room.set_monsters([boss_monster])
         laser_room.set_exits([boss_room, finale_room])
@@ -368,7 +367,7 @@ class House():
         # self.setup_directory(bedroom, entry, monster_room)
             
     # Dad's fancy way of setting up the directory
-    def setup_directory(*args):
+    def setup_directory(self, *args):
         for room in args:
             self.room_directory.update({
                 room.name.lower(): room
@@ -380,4 +379,3 @@ class House():
     def find_room_by_name(self, name: str):
         room = self.room_directory.get(name)
         return room
-        
