@@ -1,25 +1,24 @@
-
 import sys
 
-from player import Player
-from rooms import House, Room
+from .player import Player
+from .rooms import House
 
-# This is the code that will make sense of any commands that
-# are input by the player at the command prompt.
-#
 
-class CommandInterpreter():
+class CommandInterpreter:
+    """
+    Processes commands input by player at command prompt.
+    """
 
     def __init__(self, player: Player, house: House):
         self.player = player
         self.house = house
 
     def run(self):
-        while(True):
+        while True:
             cmd = self.get_next_command()
             self.interpret_command(cmd)
 
-    def get_next_command(self):
+    def get_next_command(self) -> str:
         cmd = input('> ')
         return cmd
 

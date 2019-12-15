@@ -1,11 +1,12 @@
+from .rooms import Room, Item
 
-from rooms import Room, Item
 
-class Player():
+class Player:
 
     def __init__(self):
         self.name = 'Joey'
         self.inventory = Inventory()
+        self.location = None
 
     def set_name(self, name: str):
         self.name = name
@@ -51,8 +52,7 @@ class Player():
         return False
 
 
-
-class Inventory():
+class Inventory:
 
     def __init__(self):
         self.stuff = []
