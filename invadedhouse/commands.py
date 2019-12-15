@@ -1,7 +1,7 @@
 import sys
 
-from .player import Player
-from .rooms import House
+from player import Player
+from rooms import House
 
 
 class CommandInterpreter:
