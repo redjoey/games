@@ -326,7 +326,7 @@ class House:
             1000
         )
 
-        # set up all the exits and items for each room
+        # set up all the exits and items and monsters for each room
         bedroom.set_exits([entry])
         bedroom.set_items([sword, key, apple])
 
