@@ -156,6 +156,30 @@ class Weapon(Item):
         return self.damage
 
 
+class Chest(Item):
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        capacity: int = 2
+    ):
+        super().__init__(name, description)
+        self.capacity = capacity
+        self.contents = []
+
+    def place(self, item: Item):
+        if len(self.contents) == self.capacity:
+            print(f'{self.name} is already full.')
+            return
+        self.contents.append(item)
+
+    def loot(self) -> [Item]:
+        items = self.contents
+        self.contents = []
+        return items
+
+
 class Monster:
 
     def __init__(
