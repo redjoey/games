@@ -1,4 +1,4 @@
-from .rooms import Room, Item
+from rooms import Room, Item
 
 
 class Player:
