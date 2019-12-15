@@ -197,7 +197,6 @@ class Monster:
         else:
             print(f'{self} has {self.get_hp()} of {self.get_max_hp()} HP remaining.')
 
-    # this asks if a monster is dead or alive.
     def is_dead(self):
         return self.get_hp() <= 0
 
@@ -350,6 +349,7 @@ class House:
 
         self.starting_location = bedroom
 
+        # the room directory has all of the rooms listed inside.
         self.room_directory = {
             'bedroom': bedroom,
             'entry room': entry,
