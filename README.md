@@ -12,6 +12,6 @@ We used Python 3.6.4 to make our stuff.
 
 - From the command prompt, enter the following command:
     ```
-    cd invadedhousepython3 
-    run.py
+    cd invadedhouse
+    python3 run.py
     ```
