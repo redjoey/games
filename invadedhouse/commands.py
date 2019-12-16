@@ -62,6 +62,7 @@ class CommandInterpreter:
             print('look - Open your eyes and remember what\'s around.')
             print('look at - Gaze upon anything nearby.')
             print('attack - enter a battle with a nearby monster.')
+            print('loot - Grab all the stuff from a chest!')
 
             print('Secret commands not included here!')
         elif cmd.startswith('pickup '):
@@ -69,7 +70,7 @@ class CommandInterpreter:
             if self.player.get_location().can_player_pickup(item_str):
                 item = self.player.get_location().remove_item(item_str)
                 self.player.pickup(item)
-                print(f'Picked up {item}!')
+                print(f'Picked up {item}!') 
             else:
                 print('You can\'t pick that up.')
         elif cmd == 'show inventory':
@@ -125,6 +126,20 @@ class CommandInterpreter:
             print('OMG YOU FOUND MY BRILLIANTLY WONDERFUL SECRET!!')
             warp_room = self.house.find_room_by_name('warp room')
             self.player.set_location(warp_room)
+        elif cmd.startswith('loot '):
+            item_str = cmd.replace('loot ','')
+            if self.player.get_location().can_player_pickup(item_str):
+                loot_items = self.player.get_location().get_item(item_str).loot()
+                for item in loot_items:
+                    self.player.pickup(item)
+                print(f'You looted items from {item_str}!')
+            else:
+                print('Can\'t loot. Try to loot a different loot.')
+                    
+                
+                
             
+            
+        
         else:
             print('Sorry, I don\'t recognize that command.')

@@ -332,6 +332,14 @@ class House:
             'Wow... Shiny! This beautiful sword can kill a fat, golden monster.',
             50
         )
+        trash_can = Chest(
+            'Trash Can',
+            'The most disgusting thing to grab items out of.',
+            3
+        )
+        trash_can.place(sword)
+        trash_can.place(apple)
+        trash_can.place(key)
             
         # set up the monsters
         screaming_monster = Monster(
@@ -352,7 +360,7 @@ class House:
 
         # set up all the exits and items and monsters for each room
         bedroom.set_exits([entry])
-        bedroom.set_items([sword, key, apple])
+        bedroom.set_items([trash_can])
 
         entry.set_exits([bedroom, monster_room, sword_room])
         sword_room.set_exits([entry])
