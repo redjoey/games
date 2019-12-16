@@ -1,4 +1,6 @@
-from rooms import Room, Item
+from .inventory import Inventory
+from .item import Item
+from .room import Room
 
 
 class Player:
@@ -10,7 +12,7 @@ class Player:
 
     def set_name(self, name: str):
         self.name = name
-        
+
     def set_location(self, location: Room):
         self.location = location
         self.location.enter(self)
@@ -50,22 +52,3 @@ class Player:
                 if myitem.get_name().lower() == item.lower():
                     return True
         return False
-
-
-class Inventory:
-
-    def __init__(self):
-        self.stuff = []
-
-    def add(self, item):
-        self.stuff.append(item)
-
-    def drop(self, item):
-        self.stuff.remove(item)
-        return item
-
-    def has(self, item):
-        return item in self.stuff
-
-    def all(self):
-        return self.stuff
