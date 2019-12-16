@@ -70,7 +70,7 @@ class CommandInterpreter:
             if self.player.get_location().can_player_pickup(item_str):
                 item = self.player.get_location().remove_item(item_str)
                 self.player.pickup(item)
-                print(f'Picked up {item}!') 
+                print(f'Picked up {item}!')
             else:
                 print('You can\'t pick that up.')
         elif cmd == 'show inventory':
@@ -142,11 +142,5 @@ class CommandInterpreter:
                     print(f'{item_str} is empty - nothing to loot!')
             else:
                 print('Can\'t loot. Try to loot a different loot.')
-                    
-                
-                
-            
-            
-        
         else:
             print('Sorry, I don\'t recognize that command.')
