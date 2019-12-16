@@ -1,7 +1,7 @@
 import sys
 
 from player import Player
-from rooms import House
+from rooms import House, Chest
 
 
 class CommandInterpreter:
@@ -129,10 +129,17 @@ class CommandInterpreter:
         elif cmd.startswith('loot '):
             item_str = cmd.replace('loot ','')
             if self.player.get_location().can_player_pickup(item_str):
-                loot_items = self.player.get_location().get_item(item_str).loot()
-                for item in loot_items:
-                    self.player.pickup(item)
-                print(f'You looted items from {item_str}!')
+                chest = self.player.get_location().get_item(item_str)
+                if not isinstance(chest, Chest):
+                    print('Who are you to think this is a chest??')
+                    return
+                if chest.is_not_empty():
+                    loot_items = chest.loot()
+                    for item in loot_items:
+                        self.player.pickup(item)
+                    print(f'You looted items from {item_str}!')
+                else:
+                    print(f'{item_str} is empty - nothing to loot!')
             else:
                 print('Can\'t loot. Try to loot a different loot.')
                     
