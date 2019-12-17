@@ -11,3 +11,6 @@ class Item:
 
     def get_name(self):
         return self.name
+
+    def look(self):
+        print(self.get_description())
