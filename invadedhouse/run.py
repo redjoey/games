@@ -3,7 +3,6 @@ from termcolor import cprint
 from commands import CommandInterpreter
 from models.house import House
 from models.player import Player
-from models.chest import Chest
 
 """
              Welcome to...
@@ -21,9 +20,9 @@ from models.chest import Chest
 def main():
     cprint('   ____                       __         __  __ __                   ', 'red')
     cprint('  /  _/___   _  __ ___  _ ___/ /___  ___/ / / // /___   __ __ ___  ___', 'yellow')
-    cprint(' _/ / / _ \ | |/ // _  `// _  // -_)/ _  / / _  // _ \ / // /(_-</  -_)', 'green')
-    cprint('/___//_//_/ |___/ \_,_/ \__,_/ __/ \_,_/  /_//_/ ___/ \__,_//___/ \__/ ', 'cyan')
-    print('')
+    cprint(' _/ / / _ \\ | |/ // _  `// _  // -_)/ _  / / _  // _ \\ / // /(_-</  -_)', 'green')
+    cprint('/___//_//_/ |___/ \\_,_/ \\__,_/ __/ \\_,_/  /_//_/ ___/ \\__,_//___/ \\__/ ', 'cyan')
+    print()
     player = Player(hp=30)
     house = House()
     player.set_location(house.get_starting_location())
