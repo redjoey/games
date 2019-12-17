@@ -80,4 +80,14 @@ class Player:
             sys.exit()
         else:
             print(f'You have {self.get_hp()} of {self.get_max_hp()} HP remaining.')
+    
+    def take_damage(self, damage):
+        self.hp -= damage
+        print(f'You took {damage} damage!')
+        print('')
+        if self.is_dead():
+            cprint('You died!', 'red')
+            sys.exit()
+        else:
+            print(f'You have {self.get_hp()} of {self.get_max_hp()} HP remaining.')
 
