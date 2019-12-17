@@ -128,4 +128,4 @@ class Room:
         else:
             item = self.get_item(thing_str)
             if item:
-                print(item.get_description())
+                item.look()

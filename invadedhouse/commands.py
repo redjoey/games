@@ -113,16 +113,18 @@ class CommandInterpreter:
         elif cmd == 'look' or cmd == 'look around':
             self.player.get_location().look(self.player)
         elif cmd.startswith('look at '):
-            thing = cmd.replace('look at ', '')
-            if self.player.get_location().contains(thing):
-                self.player.get_location().describe(thing)
-            elif self.player.in_inventory(thing):
-                item_obj = self.player.get_item(thing)
-                print(item_obj.get_description())
-            elif thing == 'me':
+            thing_str = cmd.replace('look at ', '')
+            thing = None
+
+            if self.player.in_inventory(thing_str):
+                thing = self.player.get_item(thing_str)
+                thing.look()
+            elif self.player.get_location().contains(thing_str):
+                self.player.get_location().describe(thing_str)
+            elif thing_str == 'me':
                 print(f'Here\'s looking at you, kid.')
             else:
-                print(f'If only {thing} was here to look at...')
+                print(f'If only {thing_str} was here to look at...')
         elif cmd == 'warp':
             print('OMG YOU FOUND MY BRILLIANTLY WONDERFUL SECRET!!')
             warp_room = self.house.find_room_by_name('warp room')
