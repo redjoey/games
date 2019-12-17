@@ -69,6 +69,10 @@ class House:
             'Nobody drew this on the map... Well, you can warp somewhere. Didn\'t see this on'
             ' the map. Just sayin\'.'
         )
+        outside_1 = Room(
+            'Outside',
+            'The sun is out, the ground is grassy, and you are outside.'
+        )
 
         # set up the items
         sword = Weapon(
@@ -116,6 +120,11 @@ class House:
             'Rock',
             'Not so awesome. Hey, did you loot the trash can? Let\'s try the sword in there.',
             1
+        )
+        knife = Weapon(
+            'Knife',
+            'Dangerous kitchen utencil.',
+            5
         )
         trash_can = Chest(
             'Trash Can',
@@ -170,6 +179,8 @@ class House:
         finale_room.set_exits([laser_room, end_room])
         finale_room.set_monsters([gold_monster])
         warp_room.set_exits([boss_room, bedroom, laser_room])
+        outside_1.set_exits([sword_room])
+        outside_1.set_items([dirt, dirt, rock, apple, knife])
 
         self.starting_location = bedroom
 
@@ -185,7 +196,8 @@ class House:
             'laser room': laser_room,
             'finale room': finale_room,
             'end room': end_room,
-            'warp room': warp_room
+            'warp room': warp_room,
+            'outside': outside_1
         }
 
         # this is a faster way to do what's written above:

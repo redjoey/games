@@ -1,8 +1,12 @@
 import sys
+from termcolor import cprint
 
 from models.chest import Chest
 from models.house import House
 from models.player import Player
+from models.room import Room
+from models.item import Item
+from models.weapon import Weapon
 
 
 class CommandInterpreter:
@@ -24,7 +28,10 @@ class CommandInterpreter:
         return cmd
 
     def interpret_command(self, cmd: str):
-        if cmd == 'exit':
+        if cmd in ('exit', 'bye', 'i\'m leaving', 'i\'m gonna exit', 'end game', 'quit', 'goodbye', 'leave', 'leave so soon', 'delete my progress', 'get outta here', 'skedaddle',
+        'let me out', 'stop', 'end', 'avengers endgame', 'im scared of this place i wanna go home', 'i wanna go home', 'i want my mommy', 'i want my daddy', 'im out', 'goodbye',
+        'this game is trash', 'i dont like this game', 'i dont like this', 'stop running run.py', f'go from {self.player.get_location()} to my house', 'walk into the strange portal that is on the wall that leads to my home',
+        'when is this going to end', f'create a portal to my house in {self.player.get_location()}', 'i hate you', 'exit the game'):
             print(f'Leaving so soon, {self.player.get_name()}?? Ok, bye!')
             sys.exit()
         elif cmd.startswith('enter '):
@@ -145,5 +152,31 @@ class CommandInterpreter:
                     print(f'{item_str} is empty - nothing to loot!')
             else:
                 print('Can\'t loot. Try to loot a different loot.')
+        elif cmd == 'smash a wall' or cmd == 'smash the wall':
+            place_that_the_hole_leads_to = self.house.find_room_by_name('outside')
+            room_that_lets_you_into_the_sword_room = self.house.find_room_by_name('entry room')
+            room_with_a_wall_that_can_be_smashed = self.house.find_room_by_name('sword room')
+            if not self.player.get_location() == room_with_a_wall_that_can_be_smashed:
+                print('Smash attempt failed.')
+                return
+            else:
+                print('The wall has been smashed! You walk through your hole in the wall and you are outside.')
+                print('')
+                room_with_a_wall_that_can_be_smashed.set_exits([room_that_lets_you_into_the_sword_room, place_that_the_hole_leads_to])
+        elif cmd in('give up', 'start over'):
+            cprint('Do you really want to give up? You\'re doing so good!, 'red')
+            are_you_sure = input('> ')
+            if are_you_sure in('yes', 'y'):
+                cprint('Okay, starting over.', 'red')
+                self.player.take_damage(self.player.get_hp())
+            elif are_you_sure in('no', 'n'):
+                cprint('Okay, great! I thought you wouldn\'t want to start over!', 'green')
+                print('')
+                return
+            else:
+                print('That\'s not an option. Continue playing.')
+                print('')
+                return
+            
         else:
             print('Sorry, I don\'t recognize that command.')
