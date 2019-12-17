@@ -7,6 +7,7 @@
 - Select executable installer from the options that appear.
 
 We used Python 3.6.4 to make our stuff.
+Also we used an IDE but Python comes with IDLE. Just saying IDE is better.
 
 ## Run the game
 
