@@ -163,14 +163,14 @@ class CommandInterpreter:
                 print('The wall has been smashed! You walk through your hole in the wall and you are outside.')
                 print('')
                 room_with_a_wall_that_can_be_smashed.set_exits([room_that_lets_you_into_the_sword_room, place_that_the_hole_leads_to])
-        elif cmd in('stab me', 'stab myself'):
-            cprint('Do you really want to stab yourself?', 'red')
+        elif cmd in('give up', 'start over'):
+            cprint('Do you really want to give up? You\'re doing so good!, 'red')
             are_you_sure = input('> ')
             if are_you_sure in('yes', 'y'):
-                cprint('Okay...', 'red')
+                cprint('Okay, starting over.', 'red')
                 self.player.take_damage(self.player.get_hp())
             elif are_you_sure in('no', 'n'):
-                cprint('I thought so. Continue playing.', 'green')
+                cprint('Okay, great! I thought you wouldn\'t want to start over!', 'green')
                 print('')
                 return
             else:
