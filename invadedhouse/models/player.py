@@ -1,14 +1,20 @@
+import sys
+from termcolor import cprint
+
 from .inventory import Inventory
 from .item import Item
+from .monster import Monster
 from .room import Room
 
 
 class Player:
 
-    def __init__(self):
+    def __init__(self, hp):
         self.name = 'Joey'
         self.inventory = Inventory()
         self.location = None
+        self.max_hp = hp
+        self.hp = hp
 
     def set_name(self, name: str):
         self.name = name
@@ -52,3 +58,26 @@ class Player:
                 if myitem.get_name().lower() == item.lower():
                     return True
         return False
+
+    def get_hp(self):
+        return self.hp
+
+    def get_max_hp(self):
+        return self.max_hp
+
+    def is_dead(self):
+        return self.get_hp() <= 0
+
+    def is_alive(self):
+        return self.get_hp() > 0
+
+    def gets_attacked_by(self, monster: Monster):
+        damage = monster.get_damage()
+        self.hp -= damage
+        print(f'You took {damage} damage!')
+        if self.is_dead():
+            cprint('You died!', 'red')
+            sys.exit()
+        else:
+            print(f'You have {self.get_hp()} of {self.get_max_hp()} HP remaining.')
+

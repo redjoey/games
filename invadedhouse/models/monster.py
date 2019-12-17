@@ -7,12 +7,14 @@ class Monster:
         self,
         name: str,
         description: str,
-        hp: int
+        hp: int,
+        damage: int = 0
     ):
         self.name = name
         self.description = description
         self.max_hp = hp
         self.hp = hp
+        self.damage = damage
 
     def __str__(self):
         return self.get_name()
@@ -28,6 +30,9 @@ class Monster:
 
     def get_max_hp(self):
         return self.max_hp
+
+    def get_damage(self):
+        return self.damage
 
     def gets_attacked_with(self, item: Item):
         if not isinstance(item, Weapon):
