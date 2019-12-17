@@ -1,14 +1,14 @@
 import sys
 
-from player import Player
-from rooms import House, Chest
+from models.chest import Chest
+from models.house import House
+from models.player import Player
 
 
 class CommandInterpreter:
     """
     Processes commands input by player at command prompt.
     """
-
     def __init__(self, player: Player, house: House):
         self.player = player
         self.house = house
@@ -18,7 +18,8 @@ class CommandInterpreter:
             cmd = self.get_next_command()
             self.interpret_command(cmd)
 
-    def get_next_command(self) -> str:
+    @staticmethod
+    def get_next_command() -> str:
         cmd = input('> ')
         return cmd
 
@@ -27,7 +28,7 @@ class CommandInterpreter:
             print(f'Leaving so soon, {self.player.get_name()}?? Ok, bye!')
             sys.exit()
         elif cmd.startswith('enter '):
-            location = cmd.replace('enter ','')
+            location = cmd.replace('enter ', '')
             
             # Step 1:
             #   check to see if there is a room with the same name
@@ -66,7 +67,7 @@ class CommandInterpreter:
 
             print('Secret commands not included here!')
         elif cmd.startswith('pickup '):
-            item_str = cmd.replace('pickup ','')
+            item_str = cmd.replace('pickup ', '')
             if self.player.get_location().can_player_pickup(item_str):
                 item = self.player.get_location().remove_item(item_str)
                 self.player.pickup(item)
@@ -80,7 +81,7 @@ class CommandInterpreter:
             for item in self.player.all_items():
                 print(item)
         elif cmd.startswith('drop '):
-            item_str = cmd.replace('drop ','')
+            item_str = cmd.replace('drop ', '')
             if not self.player.in_inventory(item_str):
                 print('How are you supposed to drop that if you don\'t HAVE it?')
             else:
@@ -93,13 +94,13 @@ class CommandInterpreter:
                 print('Nowhere! You\'re stuck now! Mwahahaha.')
             else:
                 print('Possible paths:')
-                for exit in exits:
-                    print(exit)
+                for room in exits:
+                    print(room)
         elif cmd == 'attack':
             item_to_use = input('What item do you attack with? > ')
             if not self.player.in_inventory(item_to_use):
-                print('You don\'t got dis item in yo inventory! You go '\
-                      'type in an item in yo inventory and '\
+                print('You don\'t got dis item in yo inventory! You go '
+                      'type in an item in yo inventory and '
                       'dis attack command will do dat attack fo you!')
             else:
                 item_obj = self.player.get_item(item_to_use)
@@ -112,7 +113,7 @@ class CommandInterpreter:
         elif cmd == 'look' or cmd == 'look around':
             self.player.get_location().look(self.player)
         elif cmd.startswith('look at '):
-            thing = cmd.replace('look at ','')
+            thing = cmd.replace('look at ', '')
             if self.player.get_location().contains(thing):
                 self.player.get_location().describe(thing)
             elif self.player.in_inventory(thing):
@@ -127,7 +128,7 @@ class CommandInterpreter:
             warp_room = self.house.find_room_by_name('warp room')
             self.player.set_location(warp_room)
         elif cmd.startswith('loot '):
-            item_str = cmd.replace('loot ','')
+            item_str = cmd.replace('loot ', '')
             if self.player.get_location().can_player_pickup(item_str):
                 chest = self.player.get_location().get_item(item_str)
                 if not isinstance(chest, Chest):

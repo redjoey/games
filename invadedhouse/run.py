@@ -1,6 +1,6 @@
 from commands import CommandInterpreter
-from rooms import House
-from player import Player
+from models.house import House
+from models.player import Player
 
 """
              Welcome to...
