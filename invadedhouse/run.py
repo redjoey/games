@@ -16,7 +16,7 @@ from models.player import Player
 
 
 def main():
-    player = Player()
+    player = Player(hp=30)
     house = House()
     player.set_location(house.get_starting_location())
     game = CommandInterpreter(player, house)
