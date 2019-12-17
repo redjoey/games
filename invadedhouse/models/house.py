@@ -108,6 +108,15 @@ class House:
             'Wow... Shiny! This beautiful sword can kill a fat, golden monster.',
             50
         )
+        dirt = Item(
+            'Dirt',
+            'Eww! Useless.'
+        )
+        rock = Weapon(
+            'Rock',
+            'Not so awesome. Hey, did you loot the trash can? Let\'s try the sword in there.',
+            1
+        )
         trash_can = Chest(
             'Trash Can',
             'The most disgusting thing to grab items out of.',
@@ -116,6 +125,13 @@ class House:
         trash_can.place(sword)
         trash_can.place(apple)
         trash_can.place(key)
+        little_chest = Chest(
+            'Little Chest',
+            'This small little chest could hold some stuff in it...',
+            2
+        )
+        little_chest.place(dirt)
+        little_chest.place(rock)
 
         # set up the monsters
         screaming_monster = Monster(
@@ -137,8 +153,8 @@ class House:
         # set up all the exits and items and monsters for each room
         bedroom.set_exits([entry])
         bedroom.set_items([trash_can])
-
         entry.set_exits([bedroom, monster_room, sword_room])
+        entry.set_items([little_chest])
         sword_room.set_exits([entry])
         sword_room.set_items([super_sword])
         monster_room.set_exits([entry, teleporter_room])
