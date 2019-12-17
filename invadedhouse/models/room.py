@@ -1,3 +1,5 @@
+from termcolor import cprint
+
 from .item import Item
 from .monster import Monster
 
@@ -23,7 +25,7 @@ class Room:
         self.look(player)
 
     def look(self, player):
-        print(self.get_name() + ':')
+        cprint(self.get_name() + ':', 'cyan')
         print()
         print(self.get_description().format(player_name=player.get_name()))
 
