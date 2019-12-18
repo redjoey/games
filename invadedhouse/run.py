@@ -27,7 +27,6 @@ def main():
     house = House()
     player.set_location(house.get_starting_location())
     game = CommandInterpreter(player, house)
-    
     game.run()
 
 
