@@ -121,7 +121,6 @@ class CommandInterpreter:
             self.player.get_location().look(self.player)
         elif cmd.startswith('look at '):
             thing_str = cmd.replace('look at ', '')
-            thing = None
 
             if self.player.in_inventory(thing_str):
                 thing = self.player.get_item(thing_str)
@@ -140,18 +139,25 @@ class CommandInterpreter:
             item_str = cmd.replace('loot ', '')
             if self.player.get_location().can_player_pickup(item_str):
                 chest = self.player.get_location().get_item(item_str)
-                if not isinstance(chest, Chest):
-                    print('Who are you to think this is a chest??')
-                    return
-                if chest.is_not_empty():
-                    loot_items = chest.loot()
-                    for item in loot_items:
-                        self.player.pickup(item)
-                    print(f'You looted items from {item_str}!')
-                else:
-                    print(f'{item_str} is empty - nothing to loot!')
+            elif self.player.in_inventory(item_str):
+                chest = self.player.get_item(item_str)
             else:
                 print('Can\'t loot. Try to loot a different loot.')
+                return
+
+            if not isinstance(chest, Chest):
+                print('Who are you to think this is a chest??')
+                return
+            if chest.is_not_empty():
+                loot_items = chest.loot()
+                for item in loot_items:
+                    self.player.pickup(item)
+                print(f'You looted items from {item_str}!')
+                if self.player.in_inventory(item_str):
+                    self.player.drop(chest)
+                    print(f'You dropped {item_str} because who needs that anymore?!')
+            else:
+                print(f'{item_str} is empty - nothing to loot!')
         elif cmd == 'smash a wall' or cmd == 'smash the wall':
             place_that_the_hole_leads_to = self.house.find_room_by_name('outside')
             room_that_lets_you_into_the_sword_room = self.house.find_room_by_name('entry room')
@@ -164,7 +170,7 @@ class CommandInterpreter:
                 print('')
                 room_with_a_wall_that_can_be_smashed.set_exits([room_that_lets_you_into_the_sword_room, place_that_the_hole_leads_to])
         elif cmd in('give up', 'start over'):
-            cprint('Do you really want to give up? You\'re doing so good!, 'red')
+            cprint('Do you really want to give up? You\'re doing so good!', 'red')
             are_you_sure = input('> ')
             if are_you_sure in('yes', 'y'):
                 cprint('Okay, starting over.', 'red')
@@ -177,6 +183,5 @@ class CommandInterpreter:
                 print('That\'s not an option. Continue playing.')
                 print('')
                 return
-            
         else:
             print('Sorry, I don\'t recognize that command.')
