@@ -1,6 +1,7 @@
 import sys
 from termcolor import cprint
 
+from .armor import Armor
 from .inventory import Inventory
 from .item import Item
 from .monster import Monster
@@ -9,7 +10,7 @@ from .room import Room
 
 class Player:
 
-    def __init__(self, hp):
+    def __init__(self, hp, where_you_live):
         self.name = 'Joey'
         self.inventory = Inventory()
         self.location = None
@@ -72,9 +73,20 @@ class Player:
         return self.get_hp() > 0
 
     def gets_attacked_by(self, monster: Monster):
-        damage = monster.get_damage()
+        if monster.get_damage() == 0:
+            return
+
+        damage = min(monster.get_damage() - self.get_total_dp(), 0)
+        if damage > 0:
+            self.take_damage(damage)
+            print(f'You took {damage} damage!')
+        else:
+            print(f'{monster.get_name()} tries to attack you, but they are no match for your armor.')
+
+    def take_damage(self, damage):
         self.hp -= damage
         print(f'You took {damage} damage!')
+        print('')
         if self.is_dead():
             cprint('You died!', 'red')
             sys.exit()
@@ -90,4 +102,11 @@ class Player:
             sys.exit()
         else:
             print(f'You have {self.get_hp()} of {self.get_max_hp()} HP remaining.')
+
+    def get_total_dp(self):
+        dp = 0
+        for item in self.all_items():
+            if isinstance(item, Armor):
+                dp += item.get_dp()
+        return dp
 

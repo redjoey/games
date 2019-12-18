@@ -3,6 +3,8 @@ from .item import Item
 from .monster import Monster
 from .room import Room
 from .weapon import Weapon
+from .armor import Armor
+from joeys_mods import Pocket, PocketArmor
 
 
 class House:
@@ -105,7 +107,7 @@ class House:
         )
         boss_key = Item(
             'Boss Key',
-            'This key will unlock the door to get past the Boss Room.'
+            'This key will unlock the door to get past the Boss Room. At some point.'
         )
         gold_sword = Weapon(
             'Gold Sword',
@@ -126,6 +128,84 @@ class House:
             'Dangerous kitchen utencil.',
             5
         )
+        ring = Armor(
+            'Ring',
+            'Put it on your finger and you have a shiny hand decoration.',
+            1
+        )
+        hat = Armor(
+            'Hat',
+            'Nice hat!',
+            1
+        )
+        socks = Armor(
+            'Socks',
+            'A pair of socks that keep your feet warm on the Invaded House\'s cold floor.',
+            2
+        )
+        shoes = Armor(
+            'Shoes',
+            'A pair of shoes you put over some socks to double the warmness.',
+            4
+        )
+        underwear = Armor(
+            'Underwear',
+            'Never take this off.',
+            0.1
+        )
+        forcefield = Armor(
+            'Forcefield',
+            'Woah. Where did ya get that?',
+            10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+        )
+        super_underwear = Armor(
+            'Super Underwear',
+            'This is what superheroes wear under their pants.',
+            10
+        )
+        leaf = Armor(
+            'Leaf',
+            'This came off a tree. You could use it just in case you lost your underpants.',
+            0
+        )
+        bubble = Armor(
+            'Bubble',
+            'what the heck',
+            5
+        )
+        trash_can_lid = Armor(
+            'Trash Can Lid',
+            'This is the lid of a trash can. Works as a great shield!',
+            10
+        )
+        bed_sheets = Armor(
+            'Bedsheets',
+            'How could THAT protect you?',
+            1
+        )
+        bag = Pocket(
+            'Bag',
+            '(Joey\'s Mods) Hold stuff in here like a second inventory for you!'
+        )
+        back_pack = Pocket(
+            'Backpack',
+            '(Joey\'s Mods) Like a bag, but you bring it to school!'
+        )
+        purse = Pocket(
+            'Purse',
+            '(Joey\'s Mods) Like a bag, but it\'s for girls.'
+        )
+        t_shirt = PocketArmor(
+            'T - Shirt',
+            '(Joey\'s Mods) A shirt with a pocket!',
+            1
+        )
+        pocket_shield = PocketArmor(
+            'Inventory Shield',
+            '(Joey\'s Mods) Dude, this shield has an inventory. What the heck.',
+            10
+        )
+        
         trash_can = Chest(
             'Trash Can',
             'The most disgusting thing to grab items out of.',
@@ -161,11 +241,11 @@ class House:
 
         # set up all the exits and items and monsters for each room
         bedroom.set_exits([entry])
-        bedroom.set_items([trash_can])
+        bedroom.set_items([trash_can, trash_can_lid, back_pack, purse, t_shirt])
         entry.set_exits([bedroom, monster_room, sword_room])
         entry.set_items([little_chest])
         sword_room.set_exits([entry])
-        sword_room.set_items([super_sword])
+        sword_room.set_items([super_sword, pocket_shield])
         monster_room.set_exits([entry, teleporter_room])
         monster_room.set_monsters([screaming_monster])
         teleporter_room.set_exits([monster_room, pumpkin_room])
@@ -179,8 +259,9 @@ class House:
         finale_room.set_exits([laser_room, end_room])
         finale_room.set_monsters([gold_monster])
         warp_room.set_exits([boss_room, bedroom, laser_room])
+        warp_room.set_items([forcefield])
         outside_1.set_exits([sword_room])
-        outside_1.set_items([dirt, dirt, rock, apple, knife])
+        outside_1.set_items([dirt, dirt, rock, apple, knife, bag])
 
         self.starting_location = bedroom
 
